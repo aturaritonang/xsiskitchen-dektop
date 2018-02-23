@@ -1,0 +1,29 @@
+{
+  "name": "xsiskitchen-dektop",
+  "version": "1.0.0",
+  "description": "Application Angular, Express and Node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mangatur/xsiskitchen-dektop.git"
+  },
+  "keywords": [
+    "angular"
+  ],
+  "author": "Atur Aritonang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mangatur/xsiskitchen-dektop/issues"
+  },
+  "homepage": "https://github.com/mangatur/xsiskitchen-dektop#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.15.1"
+  }
+}
