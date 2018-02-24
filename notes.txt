@@ -1,0 +1,3 @@
+MongoDB auto plural, set into like
+    module.exports = mongoose.model('user', userSchema, 'users');
+    -> users is as Collection name

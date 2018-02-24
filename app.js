@@ -1,23 +1,48 @@
 const express = require('express');
 const app = express();
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
-const userRouters = require('./api/routes/user');
+const usersRouter = require('./api/routes/users');
 
-app.use('/user', userRouters);
-// app.use('/user', (req, res, next) => {
-//     let users = [
-//         { user: "user1", name: "Phil" },
-//         { user: "user2", name: "Mark" },
-//         { user: "user3", name: "John" }
-//     ];
-//     res.status(200).json({
-//         count: users.length,
-//         users: users
-//     });
-// });
+mongoose.connect('mongodb://admin:admin780902@ds147228.mlab.com:47228/xsiskitchen');
+
+app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 app.use((req, res, next) => {
-    res.status(200).send("Express is works!");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+        "Access-Control-Allow-Header", 
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+
+    if(req.method === 'OPTIONS'){
+        res.header(
+            'Access-Control-Allow-Mothods',
+            'PUT, POST, PATCH, DELETE, GET');
+        return res.status(200).json({});
+    }
+    next();
+});
+
+app.use('/users', usersRouter);
+
+app.use((req, res, next) => {
+    const error = new Error('Not found');
+    error.status = 404;
+    next(error);
+});
+
+app.use((error, req, res, next) => {
+    res.status(error.status || 500);
+    res.json({
+        error: {
+            message: error.message
+        }
+    });
 });
 
 module.exports = app;
